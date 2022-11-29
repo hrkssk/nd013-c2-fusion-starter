@@ -88,7 +88,7 @@ def show_range_image(frame, lidar_name):
     img_range_intensity = np.vstack([img_range, img_intensity])
     deg90 = int(img_range_intensity.shape[1] / 4)
     ri_center = int(img_range_intensity.shape[1]/2)
-    img_intensity = img_range_intensity[:,ri_center-deg90:ri_center+deg90]
+    img_range_intensity = img_range_intensity[:,ri_center-deg90:ri_center+deg90]
     #######
     ####### ID_S1_EX1 END #######
 
