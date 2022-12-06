@@ -204,7 +204,7 @@ def detect_objects(input_bev_maps, model, configs):
                                 outputs['dim'], K=configs.K)
             detections = detections.cpu().numpy().astype(np.float32)
             detections = post_processing(detections = detections, configs=configs)
-            detections = detections[0]  # only first batch
+            detections = detections[0][1]  # only first batch
             #######
             ####### ID_S3_EX1-5 END #######
 
@@ -217,20 +217,19 @@ def detect_objects(input_bev_maps, model, configs):
     objects = []
 
     ## step 1 : check whether there are any detections
-    cls_id = 1 # vehicle
-    if len(detections[cls_id]) > 0:
+    if len(detections) > 0:
         ## step 2 : loop over all detections
-        for det in detections[cls_id]:
+        for det in detections:
             ## step 3 : perform the conversion using the limits for x, y and z set in the configs structure
-                _score, _x, _y, _z, _h, _w, _l, _yaw = det
-                _yaw = -_yaw
-                x = _y / configs.bev_height * (configs.lim_x[1]-configs.lim_x[0]) + configs.lim_x[0]
-                y = _x / configs.bev_width * (configs.lim_y[1]-configs.lim_y[0]) + configs.lim_y[0]
-                z = _z + configs.lim_z[0]
-                w = _w / configs.bev_width * (configs.lim_y[1]-configs.lim_y[0])
-                l = _l / configs.bev_height * (configs.lim_x[1]-configs.lim_x[0])
+            _score, _x, _y, _z, _h, _w, _l, _yaw = det
+            _yaw = -_yaw
+            x = _y / configs.bev_height * (configs.lim_x[1]-configs.lim_x[0]) + configs.lim_x[0]
+            y = _x / configs.bev_width * (configs.lim_y[1]-configs.lim_y[0]) + configs.lim_y[0]
+            z = _z + configs.lim_z[0]
+            w = _w / configs.bev_width * (configs.lim_y[1]-configs.lim_y[0])
+            l = _l / configs.bev_height * (configs.lim_x[1]-configs.lim_x[0])
             ## step 4 : append the current object to the 'objects' array
-                objects.append([cls_id, x, y, z, _h, w, l, _yaw])
+            objects.append([1, x, y, z, _h, w, l, _yaw])
     #######
     ####### ID_S3_EX2 START #######
 
