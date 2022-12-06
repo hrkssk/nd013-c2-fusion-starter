@@ -168,10 +168,10 @@ def bev_from_pcl(lidar_pcl, configs):
     ##          make sure that each entry is normalized on the difference between the upper and lower height defined in the config file
     ##          use the lidar_pcl_top data structure from the previous task to access the pixels of the height_map
     idx_height = np.lexsort((-lidar_pcl_cpy[:, 2], lidar_pcl_cpy[:, 1], lidar_pcl_cpy[:, 0]))
-    lidar_pcl_hei = lidar_pcl_cpy[idx_height]
-    _, idx_height_unique = np.unique(lidar_pcl_hei[:, 0:2], axis=0, return_index=True)
-    lidar_pcl_hei = lidar_pcl_hei[idx_height_unique]
-    height_map[np.int_(lidar_pcl_hei[:, 0]), np.int_(lidar_pcl_hei[:, 1])] = lidar_pcl_hei[:, 2] / float(np.abs(configs.lim_z[1] - configs.lim_z[0]))
+    lidar_pcl_top = lidar_pcl_cpy[idx_height]
+    _, idx_height_unique = np.unique(lidar_pcl_top[:, 0:2], axis=0, return_index=True)
+    lidar_pcl_top = lidar_pcl_top[idx_height_unique]
+    height_map[np.int_(lidar_pcl_top[:, 0]), np.int_(lidar_pcl_top[:, 1])] = lidar_pcl_top[:, 2] / float(np.abs(configs.lim_z[1] - configs.lim_z[0]))
     ## step 3 : temporarily visualize the intensity map using OpenCV to make sure that vehicles separate well from the background
     img_height = height_map * 256
     img_height = img_height.astype(np.uint8)

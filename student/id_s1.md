@@ -11,7 +11,7 @@ The lower harf region shows "intensity" channel.
 This image is cropped to +/- 90 deg, shows left and right of the forward-facing x-axis.
 
 "range" and "intensity" image
-![range_image_s1_ex1](./range_image_s1_ex1.jpg "range_image_s1_ex1")
+![range and intensity image](./id_s1_ex1.jpg "range and intensity image")
 
 ### Visualize point-cloud (ID_S1_EX2)
 This image is the result of visualizing point-cloud by Open3D.
@@ -19,7 +19,7 @@ I found 13 examples of vehicles, and boxed the vehicles by red line.
 We shows a rear-bumper, wheeles, side-mirrors, and a wind-sheild from vehicles in the point-cloud image, and shows front-lights, tail-lights, and a number plate in the "range" and "intensity" image.
 
 point-cloud image
-![point-cloud](./point-cloud.jpg "point-cloud")
+![point cloud image](./id_s1_ex2_1.jpg "point cloud image")
 
 "range" and "intensity" image
-![range_image_s1_ex2](./range_image_s1_ex2.jpg "range_image_s1_ex2")
+![range and intensity image](./id_s1_ex2_2.jpg "range and intensity image")
