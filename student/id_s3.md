@@ -7,5 +7,5 @@ I showed the repo [Super Fast and Accurate 3D Object Detection based on 3D LiDAR
 ### Extract 3D bounding boxes from model response (ID_S3_EX2)
 I extracted the relevant codes from SFA3D, and visualized the bellow image.
 
-3D bounding boxes added to the images
+3D bounding boxes added to the images<br>
 ![3D bounding boxes added to the images](./id_s3_ex2.jpg "3D bounding boxes added to the images")

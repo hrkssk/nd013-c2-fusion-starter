@@ -3,7 +3,7 @@ The main purpose of this step is "Create Birds-Eye view from Lidar PCL". I wrote
 ### Convert sensor coordinates to BEV-map coordinates (ID_S2_EX1)
 This image is the result of visualization into BEV-map coordinates of the point-cloud.
 
-BEV-map of the point-cloud
+BEV-map of the point-cloud<br>
 ![BEV-map of the point-cloud](./id_s2_ex1.jpg "BEV-map of the point-cloud")
 
 ### Compute intensity layer of the BEV map (ID_S2_EX2)
@@ -15,17 +15,17 @@ I cropped the top and bottom value of the intensity to separate the objects of i
     lidar_pcl_cpy[lidar_pcl_cpy[:,3]<=0.01,3] = 0.01
 ~~~
 
-an intensity layer from the BEV-map
+an intensity layer from the BEV-map<br>
 ![intensity layer](./id_s2_ex2.jpg "intensity layer")
 
-plotting intensity values from the BEV map
+plotting intensity values from the BEV map<br>
 ![intensity values](./id_s2_ex2_2.jpg "intensity values")
 
 ### Compute height layer of bev-map (ID_S2_EX3)
 This image is the result of visualization into BEV-map coordinates of the height.
 
-a height layer from the BEV-map
+a height layer from the BEV-map<br>
 ![height layer](./id_s2_ex2.jpg "height layer")
 
-plotting height values from the BEV map
+plotting height values from the BEV map<br>
 ![height values](./id_s2_ex2_2.jpg "height values")
