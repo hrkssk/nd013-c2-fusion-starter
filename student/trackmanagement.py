@@ -31,7 +31,7 @@ class Track:
         pos_sens = np.ones((4, 1)) # homogeneous coordinates
         pos_sens[0:3] = meas.z[0:3]
         pos_veh= meas.sensor.sens_to_veh * pos_sens
-        self.x = np.zeros((6,1))
+        self.x = np.zeros((params.dim_state,1))
         self.x[0:3] = pos_veh[0:3]
 
         P_pos = M_rot * meas.R * M_rot.transpose()
@@ -88,7 +88,6 @@ class Trackmanagement:
     def manage_tracks(self, unassigned_tracks, unassigned_meas, meas_list):
         # decrease score for unassigned tracks
         for i in unassigned_tracks:
-            print("i:", i)
             track = self.track_list[i]
             # check visibility
             if meas_list: # if not empty
@@ -97,13 +96,17 @@ class Trackmanagement:
                     track.score -= 1./params.window
 
         # delete old tracks
-        for track in self.track_list:
+#        for track in self.track_list:
+#            if ((track.state == 'confirmed') and (track.score <= params.delete_threshold)) or \
+#                (track.P[0, 0] > params.max_P) or \
+#                (track.P[1, 1] > params.max_P) or \
+#                 track.score < 1./(params.window + 1):
+#                self.delete_track(track)
             if ((track.state == 'confirmed') and (track.score <= params.delete_threshold)) or \
-                (track.P[0, 0] > params.max_P) or \
-                (track.P[1, 1] > params.max_P) or \
+               ((track.state == 'initialized' or track.state == 'tentative') and (track.P[0, 0] >= params.max_P)) or \
+               ((track.state == 'initialized' or track.state == 'tentative') and (track.P[1, 1] >= params.max_P)) or \
                  track.score < 1./(params.window + 1):
-                self.delete_track(track)
-
+               self.delete_track(track)
         # initialize new track with unassigned measurement
         for j in unassigned_meas:
             if meas_list[j].sensor.name == 'lidar': # only initialize with lidar measurements
@@ -123,10 +126,11 @@ class Trackmanagement:
         self.track_list.remove(track)
 
     def handle_updated_track(self, track):
-        if round(track.score, 2) < 1:
+#        if round(track.score, 2) < 1:
+        if track.score < 1:
             track.score += 1./params.window
 
-        if track.score > params.confirmed_threshold:
+        if track.score >= params.confirmed_threshold:
             track.state = 'confirmed'
-        elif track.score > 1./params.window:
+        elif track.score >= 1./params.window:
             track.state = 'tentative'

@@ -45,7 +45,8 @@ class Association:
             for j, meas in enumerate(meas_list):
                 for i, track in enumerate(track_list):
                     dist = self.MHD(track, meas, KF)
-                    self.association_matrix[i, j] = dist
+                    if self.gating(dist, meas.sensor):
+                        self.association_matrix[i, j] = dist
 
     def get_closest_track_and_meas(self):
         # find closest track and measurement for next update

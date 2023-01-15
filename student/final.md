@@ -30,3 +30,7 @@ RMSE<br>
 ![RMSE](./final_step3_rmse.png "RMSE")
 
 ## Step 4: Sensor Fusion
+I implemented an Track Management in the "measurements.py"
+
+RMSE<br>
+![RMSE](./final_step4_rmse.png "RMSE")
