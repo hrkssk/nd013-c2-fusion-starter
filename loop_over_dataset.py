@@ -280,7 +280,8 @@ while True:
 
 ## Evaluate object detection performance
 if 'show_detection_performance' in exec_list:
-    eval.compute_performance_stats(det_performance_all)
+#    eval.compute_performance_stats(det_performance_all)
+    eval.compute_performance_stats(det_performance_all, configs_det)
 
 ## Plot RMSE for all tracks
 if 'show_tracks' in exec_list:
