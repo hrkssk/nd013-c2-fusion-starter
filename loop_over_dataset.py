@@ -82,7 +82,7 @@ np.random.seed(10) # make random values predictable
 exec_data = ['pcl_from_rangeimage']
 exec_detection = [] # options are 'bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance'; options not in the list will be loaded from file
 exec_tracking = ['perform_tracking'] # options are 'perform_tracking'
-exec_visualization = ['show_tracks', 'make_tracking_movie'] # options are 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev', 'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
+exec_visualization = ['show_tracks','make_tracking_movie'] # options are 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev', 'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
 vis_pause_time = 0 # set pause time between frames in ms (0 = stop between frames until key is pressed)
 
@@ -149,11 +149,10 @@ while True:
             else:
                 print('loading detected objects from result file')
                 # load different data for final project vs. mid-term project
-                #if 'perform_tracking' in exec_list:
-                #    detections = load_object_from_file(results_fullpath, data_filename, 'detections', cnt_frame)
-                #else:
-                #    detections = load_object_from_file(results_fullpath, data_filename, 'detections_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
-                detections = load_object_from_file(results_fullpath, data_filename, 'detections_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
+                if 'perform_tracking' in exec_list:
+                    detections = load_object_from_file(results_fullpath, data_filename, 'detections', cnt_frame)
+                else:
+                    detections = load_object_from_file(results_fullpath, data_filename, 'detections_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
 
         ## Validate object labels
         if 'validate_object_labels' in exec_list:
@@ -170,11 +169,10 @@ while True:
         else:
             print('loading detection performance measures from file')
             # load different data for final project vs. mid-term project
-            #if 'perform_tracking' in exec_list:
-            #    det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance', cnt_frame)
-            #else:
-            #    det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
-            det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
+            if 'perform_tracking' in exec_list:
+                det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance', cnt_frame)
+            else:
+                det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
 
         det_performance_all.append(det_performance) # store all evaluation results in a list for performance assessment at the end
 

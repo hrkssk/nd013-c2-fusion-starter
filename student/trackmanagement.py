@@ -126,8 +126,8 @@ class Trackmanagement:
         self.track_list.remove(track)
 
     def handle_updated_track(self, track):
-#        if round(track.score, 2) < 1:
-        if track.score < 1:
+        if round(track.score, 2) < 1:
+#        if track.score < 1:
             track.score += 1./params.window
 
         if track.score >= params.confirmed_threshold:
